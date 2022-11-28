@@ -8,7 +8,7 @@ import './Register.css'
 
 
 const Register = () => {
-    const {createUser ,emailVerification ,updateProfileHandle ,logOutHandle} = useContext(AuthContext)
+    const {createUser,logOut ,emailVerification ,updateProfileHandle ,logOutHandle} = useContext(AuthContext)
     const [name,setName] = useState()
     const [photo,setPhoto] = useState()
     const [email,setEmail] = useState()
@@ -58,11 +58,12 @@ const Register = () => {
         if(name,email,password,photo){
             createUser(email,password)
             .then((result)=>{
-                console.log(result.user)
                 toast.success('Successfully Register',{autoClose:1000})
                 emailVerification()
                 updateUserProfile()
+                logOut()
                 navigate('/login')
+                
             })
             .catch(error=>toast.error(error.message))
         }
